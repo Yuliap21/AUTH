@@ -4,9 +4,10 @@ const app = express();
 const PORT = process.env.PORT || 8000;
 const mongoose = require('mongoose');
 const path = require('path');
-const { hash, register } = require('./controllers/auth');
+const { hash, register, login } = require('./controllers/auth');
 
 const MONGODB_URI = process.env.MONGODB_URI
+console.log(MONGODB_URI);
 const db = mongoose.connection;
 
 mongoose.connect(MONGODB_URI, {
@@ -14,8 +15,7 @@ mongoose.connect(MONGODB_URI, {
     useUnifiedTopology: true,
 });
 db.on('open', () => {
-
-    console.log('Mongo is Connected');
+console.log('Mongo is Connected');
 });
 /* Middleware */
 app.use(express.json());
@@ -25,8 +25,8 @@ if (process.env.NODE_ENV !== 'development'){
 
 /* Controller Goes Here Remove the tes*/
 app.post('/register', register)
+app.post('/login', login)
 /* Controller Ends here */
-//LISTENER
 
 
 // for react router
